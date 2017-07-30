@@ -41,7 +41,6 @@ public class Cliente extends Thread{
     }
     @Override
     public void run() {
-     //enviar();
         buffer = new byte[256];
         while (true) {            
             try {                
@@ -61,7 +60,11 @@ public class Cliente extends Thread{
                             String value = entry.getValue();
                             System.out.println("Usuario Connectado: "+key+"\t"+value);
                         }               
-                }                
+                }
+                if (readLine.compareTo("--repartir")==0) {
+                    System.out.println("bien ");
+                }
+                
             } catch (Exception e) {
             }
         }

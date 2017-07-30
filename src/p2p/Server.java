@@ -35,9 +35,7 @@ public class Server extends Thread{
         this.nombre=name;
         this.port=port;        
         this.map=map;
-        this.ds = new DatagramSocket(port);
-        
-        
+        this.ds = new DatagramSocket(port);        
     }
     @Override
     public void run() {
