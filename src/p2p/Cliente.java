@@ -20,7 +20,7 @@ import java.util.Map;
  *
  * @author kevin
  */
-public class Cliente extends Thread{
+public class Cliente implements Runnable{
 
     String nombre,readLine;
     InetAddress AddrBrodcast;
@@ -29,7 +29,7 @@ public class Cliente extends Thread{
     int port;    
     byte [] buffer;
     BufferedReader in;
-    private HashMap<String,String> map;
+     HashMap<String,String> map;
     
     public Cliente(InetAddress ipBroadcast,int port,String name,HashMap<String,String> map) throws SocketException{
         this.nombre=name;
@@ -61,9 +61,11 @@ public class Cliente extends Thread{
                             System.out.println("Usuario Connectado: "+key+"\t"+value);
                         }               
                 }
-                if (readLine.compareTo("--repartir")==0) {
-                    System.out.println("bien ");
-                }
+//                if (readLine.compareTo("--repartir")==0) {
+//                    System.out.println("bien ");
+//                    new Frases().Palabras();
+//                    
+//                }
                 
             } catch (Exception e) {
             }

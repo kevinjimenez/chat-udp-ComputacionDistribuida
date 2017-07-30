@@ -22,14 +22,14 @@ public class Iniciando {
     String MyName,netIntWilan,netIntEth;
     InetAddress ip;
     int port;        
-    HashMap<String,String> map;
-    ExecutorService ex ;
+    HashMap<String,String> map = new HashMap<>();
+    ExecutorService ex = Executors.newCachedThreadPool();
 
     public Iniciando(String MyName, int port) {
         this.MyName = MyName;
         this.port = port;
-        map = new HashMap<>();
-        ex = Executors.newCachedThreadPool();
+        //map = new HashMap<>();
+        //ex = Executors.newCachedThreadPool();
     }        
     
     void TurnUp() throws SocketException{        

@@ -20,14 +20,14 @@ import java.util.logging.Logger;
  *
  * @author kevin
  */
-public class Server extends Thread{
+public class Server implements Runnable{
 
-    private InetAddress addrBrodcast;
-    private DatagramSocket ds;
-    private String nombre,msjRecive;
-    private int port;    
+    InetAddress addrBrodcast;
+    DatagramSocket ds;
+    String nombre,msjRecive;
+    int port;    
     byte [] buffer;
-    private HashMap<String,String> map;
+    HashMap<String,String> map;
     DatagramPacket dp;
    
     public Server(InetAddress addrBrodcast,int port,String name,HashMap<String,String> map) throws SocketException{
@@ -42,8 +42,7 @@ public class Server extends Thread{
      Listener();
     }
     
-    private void Listener(){
-        
+    private void Listener(){        
         buffer = new byte[256];
         while(true){            
             try {              
@@ -51,8 +50,10 @@ public class Server extends Thread{
                ds.receive(dp);                
                msjRecive = new String(dp.getData(), 0, dp.getLength());              
                String parser=parsear(msjRecive,dp.getAddress().getHostAddress());
+               //System.out.println(":V "+parser);
                if(parser!=null){
-                System.out.println(parser);   
+                   //System.out.println(":v");   
+                    System.out.println(parser);   
                }
                 
             } catch (IOException ex) {
@@ -75,6 +76,14 @@ public class Server extends Thread{
         StringTokenizer tokens = new StringTokenizer(msj,"@");
         String str=tokens.nextToken();
         if(str.equals(nombre)||str.equals("global")){
+//            if(str.compareTo("jugar")==0){
+//                for (Map.Entry<String, String> entry : map.entrySet()) {
+//                    if (entry.getValue().compareTo(hostAddress)==0) {
+//                        System.out.println(entry.getKey()+" desde "+hostAddress+" les dice a todos:");
+//                        break;
+//                    }
+//                }
+//            }
             if(str.equals("global")){                 
                 for (Map.Entry<String, String> entry : map.entrySet()) {
                     String key = entry.getKey();
@@ -88,32 +97,23 @@ public class Server extends Thread{
             }
               
             if(str.equals(nombre)){
-                  for (Map.Entry<String, String> entry : map.entrySet()) {
+                for (Map.Entry<String, String> entry : map.entrySet()) {
                     String key = entry.getKey();
                     String value = entry.getValue();
-                      if (value.equals(hostAddress)) {
-                          System.out.println(key+" desde "+hostAddress+" dice:");              
-                          break;
-                      }
-                      
-                    
-                }
-               
-                 
+                    if (value.equals(hostAddress)) {
+                        System.out.println(key+" desde "+hostAddress+" dice:");              
+                        break;
+                    }                      
+                }                                
             }
+            System.out.println("kheeee: "+tokens.nextToken());
             return tokens.nextToken(); 
-        }
-           
+        }           
         if(str.equals("report")){
             String nodo =tokens.nextToken();
             map.put(nodo, hostAddress);
                 return null;
             }                  
-        return null;
-        
-        
-        
-    }
-    
-    
+        return null;        
+    }        
 }
