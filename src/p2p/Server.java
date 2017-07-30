@@ -106,7 +106,7 @@ public class Server implements Runnable{
                     }                      
                 }                                
             }
-            return tokens.nextToken(); 
+        return tokens.nextToken(); 
         }           
         if(str.equals("report")){
             String nodo =tokens.nextToken();
